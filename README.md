@@ -2,13 +2,13 @@
 
 ## Summary
 
-This library provides management of memory blocks allocation/deallocation. Library implements simple linked list algorithm.
-You can use it with static/single memory pool or different chunk size pools.
+This library provides management of memory blocks allocation/free. Library implements simple linked list algorithm.
+You can use it with static/single memory pool or multiple pools with different chunk size.
 Library can check your memory pool for memory overflow with magic number in header with `-DMEMMGR_CHECK_OVERFLOW` flag and user-provided callback.
 
 ## Detailed description
 
-You should provide memory buffer that would be marked as descried above:
+You should provide memory buffer that would be marked as descried below:
 
 * memory pool header:
   * magic (if used memory overflow checking)
@@ -34,7 +34,7 @@ Compilation flags:
 
 `-DMEMMGR_MACHINE_ALIGNMENT_MASK=m` - address mask to check memory alignment. Default is ARM-recommended 8 bytes alignment mask `0x7`.
 
-`-DMEMMGR_USE_STATIC_POOL=[1|0]` - user wants to use only one memory poll. This pool would be created statically after `vMemMgrInit(pxBuf, xSize, xChunkSize)` call and no pool pointer would be required with alloc/dealloc calls.
+`-DMEMMGR_USE_STATIC_POOL` - user wants to use only one memory pool. This pool would be created statically after `vMemMgrStaticPoolInit(xChunkSize)` call and no pool pointer would be required with alloc/free calls.
 
 `-DMEMMGR_THREAD_SAFE=[1|0]` - if you want to use library in multithreaded environment you shold set this flag to 1 and provide two functions `void vMemMgrLock(HeapHeader_t*)` and `void vMemMgrUnlock(HeapHeader_t*)`
 
@@ -42,7 +42,7 @@ Compilation flags:
 
 Unit tests requires the following
 * libcheck
-* llvm
+* clang
 
 If you have this frameworks you can call `make tests` from `test` subdirectory.
 
