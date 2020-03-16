@@ -34,7 +34,7 @@ Compilation flags:
 
 `-DMEMMGR_MACHINE_ALIGNMENT_MASK=m` - address mask to check memory alignment. Default is ARM-recommended 8 bytes alignment mask `0x7`.
 
-`-DMEMMGR_USE_STATIC_POOL=[1|0]` - user wants to use only one memory poll. This pool would be created statically after `vMemMgrInit(pxBuf, xSize, xChunkSize)` call and no pool pointer would be required with alloc/dealloc calls.
+`-DMEMMGR_USE_STATIC_POOL=[1|0]` - user wants to use only one memory poll. This pool would be created statically with `vMemMgrStaticPoolInit(xChunkSize)` call and no pool pointer would be required with alloc/dealloc calls. Define `-DMEMMR_STATIC_POOL_SIZE=n` to assign static pool size.
 
 `-DMEMMGR_THREAD_SAFE=[1|0]` - if you want to use library in multithreaded environment you shold set this flag to 1 and provide two functions `void vMemMgrLock(HeapHeader_t*)` and `void vMemMgrUnlock(HeapHeader_t*)`
 
@@ -50,4 +50,5 @@ If you have this frameworks you can call `make tests` from `test` subdirectory.
 
 * Library uses extension named zero-memory-array. It means if your compiler does not support it your can not use this library or you can modify source code to calculate memory block address manually.
 * Unit tests are not covering multithreading. Only simple checking for object is unlocked after thread-sensitive calls. You should test it with your environment due to it's depended on target implementation.
+* Unittests use unsafe alloca function, be careful with tests modification
 * There is no checks for calling from ISR, be careful with thread-safe functions implementation.
