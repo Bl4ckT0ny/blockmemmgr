@@ -2,13 +2,13 @@
 
 ## Summary
 
-This library provides management of memory blocks allocation/deallocation. Library implements simple linked list algorithm.
-You can use it with static/single memory pool or different chunk size pools.
+This library provides management of memory blocks allocation/free. Library implements simple linked list algorithm.
+You can use it with static/single memory pool or multiple pools with different chunk size.
 Library can check your memory pool for memory overflow with magic number in header with `-DMEMMGR_CHECK_OVERFLOW` flag and user-provided callback.
 
 ## Detailed description
 
-You should provide memory buffer that would be marked as descried above:
+You should provide memory buffer that would be marked as descried below:
 
 * memory pool header:
   * magic (if used memory overflow checking)
@@ -42,7 +42,7 @@ Compilation flags:
 
 Unit tests requires the following
 * libcheck
-* llvm
+* clang
 
 If you have this frameworks you can call `make tests` from `test` subdirectory.
 
